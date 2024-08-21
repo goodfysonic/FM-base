@@ -120,6 +120,7 @@ export const GROUP_KIND_ADMIN = 1;
 export const GROUP_KIND_MANAGER = 2;
 export const GROUP_KIND_USER = 3;
 
+
 export const groupPermissionKindsOptions = [
     { label: 'Admin', value: GROUP_KIND_ADMIN },
     { label: 'Manager', value: GROUP_KIND_MANAGER },

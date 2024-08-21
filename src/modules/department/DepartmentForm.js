@@ -33,7 +33,7 @@ const DepartmentForm = (props) => {
                         <TextField
                             label={'Danh mục tin tức'}
                             required
-                            name="categoryName" 
+                            name="name" 
                         />
                     </Col>
                     <Col span={24}>

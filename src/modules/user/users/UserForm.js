@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import useBasicForm from '@hooks/useBasicForm';
 import TextField from '@components/common/form/TextField';
 import CropImageField from '@components/common/form/CropImageField';
-import { AppConstants, DATE_FORMAT_VALUE, DEFAULT_FORMAT } from '@constants';
+import { AppConstants, DATE_FORMAT_VALUE, DEFAULT_FORMAT, groupPermissionKindsOptions } from '@constants';
 import useFetch from '@hooks/useFetch';
 import apiConfig from '@constants/apiConfig';
 import { defineMessages } from 'react-intl';
@@ -14,6 +14,8 @@ import SelectField from '@components/common/form/SelectField';
 import DatePickerField from '@components/common/form/DatePickerField';
 import dayjs from 'dayjs';
 import { formatDateString } from '@utils';
+import PropTypes from 'prop-types';
+import AutoCompleteField from '@components/common/form/AutoCompleteField';
 
 const message = defineMessages({
     objectName: 'group permission',
@@ -39,7 +41,7 @@ const UserForm = (props) => {
             onCompleted: (response) => {
                 if (response.result === true) {
                     onSuccess();
-                    setImageUrl(response.data.filePath);
+                    setImageUrl(response.data.filePath);  
                     setIsChangedFormValues(true);
                 }
             },
@@ -48,10 +50,12 @@ const UserForm = (props) => {
             },
         });
     };
+    
 
     const handleSubmit = (values) => {
-        values.birthday = formatDateString(values?.birthday, DATE_FORMAT_VALUE) + ' 00:00:00';
-        return mixinFuncs.handleSubmit({ ...values, avatar: imageUrl });
+        values.birthDate = formatDateString(values?.birthDate, DATE_FORMAT_VALUE) + ' 00:00:00';
+        const groupId = 15;
+        return mixinFuncs.handleSubmit({ ...values, groupId, avatar: imageUrl });
     };
 
     const validateDate = (_, value) => {
@@ -63,16 +67,23 @@ const UserForm = (props) => {
     };
 
     useEffect(() => {
-        dataDetail.phone=dataDetail?.account?.phone;
-        dataDetail.fullName=dataDetail?.account?.fullName;
-        dataDetail.email=dataDetail?.account?.email;
-
-        dataDetail.birthDate = dataDetail?.birthDate && dayjs(dataDetail?.birthDate, DATE_FORMAT_VALUE);
-        form.setFieldsValue({
-            ...dataDetail,
-        });
-        setImageUrl(dataDetail.avatar);
-    }, [dataDetail]);
+        if (dataDetail) {
+            form.setFieldsValue({
+                ...dataDetail,
+                username: dataDetail.username,
+                fullName: dataDetail.fullName,
+                phone: dataDetail.phone,
+                email: dataDetail.email,
+                address: dataDetail.address,
+                birthDate: dataDetail.birthDate, 
+                departmentId: dataDetail.departmentId,
+                groupId: dataDetail.groupId,
+                avatar: dataDetail.avatar,
+            });
+            setImageUrl(dataDetail.avatar);
+        }
+    }, [dataDetail, form]);
+    
 
     return (
         <BaseForm id={formId} onFinish={handleSubmit} form={form} onValuesChange={onValuesChange}>
@@ -90,11 +101,28 @@ const UserForm = (props) => {
                 </Row>
                 <Row gutter={16}>
                     <Col span={12}>
-                        <TextField label={translate.formatMessage(commonMessage.username)} required name="username" />
+                        <TextField
+                            label={translate.formatMessage(commonMessage.username)}
+                            required
+                            name="username"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your username!',
+                                },
+                                // {
+                                //     validator: checkUsernameUnique,
+                                // },
+                            ]}
+                        />
                     </Col>
                     <Col span={12}>
                         <TextField label={translate.formatMessage(commonMessage.fullName)} required name="fullName" />
                     </Col>
+                    <Col span={12}>
+                        <TextField label={translate.formatMessage(commonMessage.address)} required name="address" />
+                    </Col>
+
                     <Col span={12}>
                         <DatePickerField
                             disabled={isEditing}
@@ -117,6 +145,19 @@ const UserForm = (props) => {
                             name="email"
                             type="email"
                             required={!isEditing}
+                            rules={[
+                                {
+                                    type: 'email',
+                                    message: 'The input is not valid E-mail!',
+                                },
+                                {
+                                    required: true,
+                                    message: 'Please input your E-mail!',
+                                },
+                                // {
+                                //     validator: checkEmailUnique,
+                                // },
+                            ]}
                         />
                     </Col>
                     <Col span={12}>
@@ -125,6 +166,24 @@ const UserForm = (props) => {
                             type="number"
                             name="phone"
                             required
+                        />
+                    </Col>
+                    <Col span={12}>
+                        <AutoCompleteField
+                            label={translate.formatMessage(commonMessage.department)}
+                            name="departmentId"
+                            apiConfig={apiConfig.department.autocomplete}
+                            mappingOptions={(item) => ({ value: item.id, label: item.name })}
+                            initialSearchParams={{ kind: 1 }}
+                            searchParams={(text) => ({ name: text, kind: 1 })}
+                            required
+                        />
+                    </Col>
+                    <Col span={12}>
+                        <SelectField
+                            label={translate.formatMessage(commonMessage.group)}
+                            name="kind"
+                            options={groupPermissionKindsOptions}
                         />
                     </Col>
                     <Col span={12}>
@@ -150,30 +209,34 @@ const UserForm = (props) => {
                             ]}
                         />
                     </Col>
-                    <Col span={12}>
-                        <TextField
-                            label={translate.formatMessage(commonMessage.confirmPassword)}
-                            required={!isEditing}
-                            name="confirmPassword"
-                            type="password"
-                            rules={[
-                                {
-                                    validator: async () => {
-                                        const password = form.getFieldValue('password');
-                                        const confirmPassword = form.getFieldValue('confirmPassword');
-                                        if (password !== confirmPassword) {
-                                            throw new Error(translate.formatMessage(commonMessage.passwordNotMatch));
-                                        }
-                                    },
-                                },
-                            ]}
-                        />
-                    </Col>
                 </Row>
                 <div className="footer-card-form">{actions}</div>
             </Card>
         </BaseForm>
     );
+};
+
+// Xác thực prop với PropTypes
+UserForm.propTypes = {
+    formId: PropTypes.string.isRequired,
+    actions: PropTypes.node,
+    dataDetail: PropTypes.shape({
+        phone: PropTypes.string,
+        fullName: PropTypes.string,
+        email: PropTypes.string,
+        birthDate: PropTypes.instanceOf(dayjs),
+        avatar: PropTypes.string,
+        account: PropTypes.shape({
+            phone: PropTypes.string,
+            fullName: PropTypes.string,
+            email: PropTypes.string,
+        }),
+    }).isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    setIsChangedFormValues: PropTypes.func.isRequired,
+    groups: PropTypes.array,
+    branchs: PropTypes.array,
+    isEditing: PropTypes.bool,
 };
 
 export default UserForm;

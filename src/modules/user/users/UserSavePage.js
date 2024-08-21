@@ -9,6 +9,8 @@ import { defineMessages } from 'react-intl';
 import useTranslate from '@hooks/useTranslate';
 import { commonMessage } from '@locales/intl';
 import useFetch from '@hooks/useFetch';
+import dayjs from 'dayjs';
+import { DATE_FORMAT_VALUE } from '@constants';
 
 const message = defineMessages({
     objectName: 'UserAdmin',
@@ -37,12 +39,13 @@ const UserSavePage = ({ pageOptions }) => {
         override: (funcs) => {
             funcs.prepareUpdateData = (data) => {
                 return {
+                    ...data,
                     status: STATUS_ACTIVE,
                     avatarPath: data.avatar,
-                    ...data,
                     id: id,
                 };
             };
+
             funcs.prepareCreateData = (data) => {
                 return {
                     ...data,
@@ -53,9 +56,14 @@ const UserSavePage = ({ pageOptions }) => {
 
             funcs.mappingData = (data) => {
                 return {
-                    ...data.data,
+                    ...data.data, // Spread tất cả dữ liệu có trong data
+                    groupId: data.data.group?.id, // Lấy id của group
+                    departmentId: data.data.department?.id, // Lấy id của department
+                    avatar: data.data.avatarPath, // Gán avatarPath vào avatar
+                    birthDate: dayjs(data.data.birthDate, DATE_FORMAT_VALUE), // Định dạng lại birthDate
                 };
             };
+            
         },
     });
 

@@ -64,4 +64,5 @@ export const commonMessage = defineMessages({
     addNew: 'Add new',
     searchByName: 'Search by name',
     departmentName: 'Department Name',
+    departmentId: 'Department Id',
 });
