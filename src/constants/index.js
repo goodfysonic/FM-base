@@ -77,11 +77,6 @@ export const UploadFileTypes = {
 
 export const LIMIT_IMAGE_SIZE = 512000;
 
-export const STATUS_PENDING = 0;
-export const STATUS_ACTIVE = 1;
-export const STATUS_INACTIVE = -1;
-export const STATUS_DELETE = -2;
-
 export const DEFAULT_TABLE_ITEM_SIZE = 10;
 export const DEFAULT_TABLE_PAGE_START = 0;
 
@@ -143,4 +138,23 @@ export const SettingTypes = {
 };
 
 export const ADMIN_LOGIN_TYPE = 'password';
+
+// Transaction and transaction group
+
+export const TRANSACTION_STATE_CREATED = 1;
+export const TRANSACTION_STATE_APPROVE = 2;
+export const TRANSACTION_STATE_REJECT = 3;
+export const TRANSACTION_STATE_PAID = 4;
+
+export const TRANSACTION_KIND_INCOME = 1;
+export const TRANSACTION_KIND_EXPENDITURE = 2;
+
+export const STATUS_PENDING = 0;
+export const STATUS_ACTIVE = 1;
+export const STATUS_INACTIVE = -1;
+export const STATUS_DELETE = -2;
+export const STATUS_LOCK = -1;
+
+
+
 

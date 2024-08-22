@@ -12,6 +12,7 @@ import SettingListPage from '@modules/listSetting';
 import SettingSavePage from '@modules/listSetting/SettingSavePage';
 import settingsRoutes from '@modules/settings/routes';
 import departmentRoutes from '@modules/department/routes';
+import transactionRoutes from '@modules/transaction-management/Transaction/routes';
 /*
 	auth
 		+ null: access login and not login
@@ -78,6 +79,8 @@ const routes = {
     ...nationRoutes,
     ...settingsRoutes,
     ...departmentRoutes,
+    ...transactionRoutes,
+
     // keep this at last
     notFound: {
         component: PageNotFound,

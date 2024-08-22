@@ -203,14 +203,14 @@ const apiConfig = {
             headers: baseHeader,
         },
         getGroupListCombobox: {
-            baseURL: `${apiUrl}v1/group/list_combobox`,
+            baseURL: `${apiUrl}v1/group/list-combobox`,
             method: 'GET',
             headers: baseHeader,
         },
     },
     branchs: {
         getListCombobox: {
-            baseURL: `${apiUrl}api/branch/list_combobox`,
+            baseURL: `${apiUrl}api/branch/list-combobox`,
             method: 'GET',
             headers: baseHeader,
         },
@@ -301,6 +301,7 @@ const apiConfig = {
             headers: baseHeader,
         },
     },
+    
     settings: {
         getList: {
             baseURL: `${apiTenantUrl}v1/setting/list`,
@@ -345,6 +346,7 @@ const apiConfig = {
             isRequiredTenantId: true,
         },
     },
+
     department: {
         getList: {
             baseURL: `${apiUrl}v1/department/list`,
@@ -378,6 +380,178 @@ const apiConfig = {
         },
         autocomplete: {
             baseURL: `${apiUrl}v1/department/auto-complete`,
+            method: 'GET',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+    },
+
+    // transaction: {
+    //     getList: {
+    //         baseURL: `${apiUrl}v1/transaction/list`,
+    //         method: 'GET',
+    //         headers: baseHeader,
+    //         isRequiredTenantId: true,
+    //     },
+    //     getById: {
+    //         baseURL: `${apiUrl}v1/transaction/get/:id`,
+    //         method: 'GET',
+    //         headers: baseHeader,
+    //         isRequiredTenantId: true,
+    //     },
+    //     create: {
+    //         baseURL: `${apiUrl}v1/transaction/create`,
+    //         method: 'POST',
+    //         headers: baseHeader,
+    //         isRequiredTenantId: true,
+    //     },
+    //     update: {
+    //         baseURL: `${apiUrl}v1/transaction/update`,
+    //         method: 'PUT',
+    //         headers: baseHeader,
+    //         isRequiredTenantId: true,
+    //     },
+    //     delete: {
+    //         baseURL: `${apiUrl}v1/transaction/delete/:id`,
+    //         method: 'DELETE',
+    //         headers: baseHeader,
+    //         isRequiredTenantId: true,
+    //     },
+    //     autocomplete: {
+    //         baseURL: `${apiUrl}v1/transaction/auto-complete`,
+    //         method: 'GET',
+    //         headers: baseHeader,
+    //         isRequiredTenantId: true,
+    //     },
+    //     approve: {
+    //         baseURL: `${apiUrl}v1/transaction/approve`,
+    //         method: 'PUT',
+    //         headers: baseHeader,
+    //         isRequiredTenantId: true,
+    //     },
+    //     my_transaction: {
+    //         baseURL: `${apiUrl}v1/transaction/my-transaction`,
+    //         method: 'GET',
+    //         headers: baseHeader,
+    //         isRequiredTenantId: true,
+    //     },
+    //     reject: {
+    //         baseURL: `${apiUrl}v1/transaction/reject`,
+    //         method: 'PUT',
+    //         headers: baseHeader,
+    //         isRequiredTenantId: true,
+    //     },
+    // },
+    
+    transaction: {
+        getList: {
+            baseURL: `${apiUrl}v1/transaction/list`,
+            method: 'GET',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        getById: {
+            baseURL: `${apiUrl}v1/transaction/get/{id}`, 
+            method: 'GET',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        create: {
+            baseURL: `${apiUrl}v1/transaction/create`,
+            method: 'POST',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        update: {
+            baseURL: `${apiUrl}v1/transaction/update`,
+            method: 'PUT',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        delete: {
+            baseURL: `${apiUrl}v1/transaction/delete/{id}`, 
+            method: 'DELETE',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        autocomplete: {
+            baseURL: `${apiUrl}v1/transaction/auto-complete`,
+            method: 'GET',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        approve: {
+            baseURL: `${apiUrl}v1/transaction/approve`,
+            method: 'PUT',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        my_transaction: {
+            baseURL: `${apiUrl}v1/transaction/my-transaction`,
+            method: 'GET',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        reject: {
+            baseURL: `${apiUrl}v1/transaction/reject`,
+            method: 'PUT',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        importExcel: {
+            baseURL: `${apiUrl}v1/transaction/import-excel`,
+            method: 'POST',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        exportToExcel: {
+            baseURL: `${apiUrl}v1/transaction/export-to-excel`,
+            method: 'GET',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        myStatistic: {
+            baseURL: `${apiUrl}v1/transaction/my-statistic`,
+            method: 'GET',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+    },
+    
+
+    transactionGroup: {
+        getList: {
+            baseURL: `${apiUrl}v1/transaction-group/list`,
+            method: 'GET',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        getById: {
+            baseURL: `${apiUrl}v1/transaction-group/get/:id`,
+            method: 'GET',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        create: {
+            baseURL: `${apiUrl}v1/transaction-group/create`,
+            method: 'POST',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        update: {
+            baseURL: `${apiUrl}v1/transaction-group/update`,
+            method: 'PUT',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        delete: {
+            baseURL: `${apiUrl}v1/transaction-group/delete/:id`,
+            method: 'DELETE',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        autocomplete: {
+            baseURL: `${apiUrl}v1/transaction-group/auto-complete`,
             method: 'GET',
             headers: baseHeader,
             isRequiredTenantId: true,

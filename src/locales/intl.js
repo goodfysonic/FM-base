@@ -60,9 +60,47 @@ export const commonMessage = defineMessages({
     timeZone: 'Timezone',
     money: 'Money',
     system: 'System',
-    department: 'Department', // mới thêm vô
+    // DEPARTMENT
+    department: 'Department', 
     addNew: 'Add new',
     searchByName: 'Search by name',
     departmentName: 'Department Name',
     departmentId: 'Department Id',
+    // TRANSACTION
+    transactionName: {
+        id: 'transaction.transactionName',
+        defaultMessage: 'Transaction Name',
+    },
+    transactionDate: {
+        id: 'transaction.transactionDate',
+        defaultMessage: 'Transaction Date',
+    },
+    amount: {
+        id: 'transaction.amount',
+        defaultMessage: 'Amount',
+    },
+    // category: {
+    //     id: 'general.category',
+    //     defaultMessage: 'Category',
+    // },
+    // kind: {
+    //     id: 'transaction.kind',
+    //     defaultMessage: 'Kind',
+    // },
+    state: {
+        id: 'transaction.state',
+        defaultMessage: 'State',
+    },
+    fromDate: {
+        id: 'transaction.fromDate',
+        defaultMessage: 'From Date',
+    },
+    endDate: {
+        id: 'transaction.endDate',
+        defaultMessage: 'End Date',
+    },
+    groupTransaction: {
+        id: 'transaction.groupTransaction',
+        defaultMessage: 'Group Transaction',
+    },
 });

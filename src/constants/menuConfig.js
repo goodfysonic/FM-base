@@ -7,6 +7,19 @@ import { IconSettings } from '@tabler/icons-react';
 
 export const navMenuConfig = [
     {
+        label: <FormattedMessage defaultMessage="Quản lí Transaction" />,
+        key: 'quan-ly-giao-dich',
+        icon: <IconSettings size={16} />,
+        children: [
+            {
+                label: <FormattedMessage defaultMessage="Transaction" />,
+                key: 'transaction',
+                path: routes.transactionListPage.path,
+                permission: apiConfig.transaction.getList.baseURL,
+            },
+        ],
+    },
+    {
         label: <FormattedMessage defaultMessage="Quản lý hệ thống" />,
         key: 'quan-ly-he-thong',
         icon: <IconSettings size={16} />,
